@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TestNiNe</string>
+    <string name="qty">Quantity</string>
 </resources>
