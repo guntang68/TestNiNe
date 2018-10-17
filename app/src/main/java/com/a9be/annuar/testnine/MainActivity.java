@@ -15,14 +15,24 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String tab, type, l, a;
+    private List<MyData.Element> elements;
+    private List<MyData.Row> rows;
 
-    private LinearLayout outerLinearLayout;
-
-    private LinearLayout parentLinearLayout;
+    private void tempel() {
+        for (MyData.Row row : rows) {
+            Log.d("tagLog", "tab = " + row.getTab());
+            Log.d("tagLog", "type = " + row.getType());
+            elements = row.getElement();
+            for (MyData.Element element : elements) {
+                Log.d("tagLog", "tab = " + row.getTab());
+            }
 
 
 
@@ -60,6 +70,91 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+//    private void bukaJson() {
+//
+//        String json = loadJSONFromAsset();
+//        try {
+//            rows = new ArrayList<>();
+//            JSONObject main = new JSONObject(json);
+//            Iterator<String> keys = main.keys();
+//
+//            while(keys.hasNext()) {
+//                String key = keys.next();
+//
+//                if(key.equals("rows")){
+//                    JSONArray jRows = main.getJSONArray("rows");
+//                    for (int i=0; i<jRows.length(); i++) {
+//                        tab = "";
+//                        type = "";
+//                        elements = new ArrayList<>();
+//                        JSONObject jInRow = jRows.getJSONObject(i);
+//                        Iterator<String> rowKeys = jInRow.keys();
+//
+//                        while (rowKeys.hasNext()) {
+//                            String rowKey = rowKeys.next();
+//
+//                            switch (rowKey) {
+//                                case "tab":
+//                                    tab = jInRow.getString("tab");
+//                                    break;
+//                                case "type":
+//                                    type = jInRow.getString("type");
+//                                    break;
+//                                case "element":
+//                                    JSONArray jElements = jInRow.getJSONArray("element");
+//                                    for (int j = 0; j < jElements.length(); j++) {
+//                                        l = "";
+//                                        a = "";
+//                                        JSONObject jInElement = jElements.getJSONObject(j);
+//                                        Iterator<String> elementKeys = jInElement.keys();
+//
+//                                        while (elementKeys.hasNext()) {
+//                                            String elementKey = elementKeys.next();
+//
+//                                            switch (elementKey) {
+//                                                case "l":
+//                                                    l = jInElement.getString("l");
+//                                                    break;
+//                                                case "a":
+//                                                    a = jInElement.getString("a");
+//                                                    break;
+//                                            }
+//
+//                                        }
+//
+//                                        MyData.Element element = new MyData.Element();
+//                                        element.setL(l);
+//                                        element.setA(a);
+//                                        elements.add(element);
+//
+//                                    }
+//                                    break;
+//                            }
+//                        }
+//
+//                        MyData.Row row = new MyData.Row();
+//                        row.setTab(tab);
+//                        row.setType(type);
+//                        row.setElement(elements);
+//                        rows.add(row);
+//
+//                    }
+//
+//
+//                }
+//
+//                Log.d("tagLog", key);
+//                if (main.get(key) instanceof JSONObject) {
+//                    Log.d("tagLog", main.get(key).toString());
+//                }
+//
+//
+//            }
+//        } catch (JSONException e) {
+//            Log.d("tagLog", "Search : " + e.toString());
+//        }
+//    }
+
     public String loadJSONFromAsset() {
         String json;
         try {
@@ -85,11 +180,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        bukaJson();
+//        bukaJson();
+//        MyAdapter myAdapter = new MyAdapter(this);
+//        myAdapter.niJson(loadJSONFromAsset());
 
 
-
-        outerLinearLayout = (LinearLayout) findViewById(R.id.outer_layout);
+        LinearLayout outerLinearLayout = (LinearLayout) findViewById(R.id.outer_layout);
 
         View rowView;
         TextView textValue;
@@ -98,50 +194,50 @@ public class MainActivity extends AppCompatActivity {
 
         //--------------------------------------------------------------------------
         rowView = inflater.inflate(R.layout.nb_row_group_000,null);
-        outerLinearLayout.addView(rowView,outerLinearLayout.getChildCount());
-        parentLinearLayout = (LinearLayout)  rowView;
+        outerLinearLayout.addView(rowView, outerLinearLayout.getChildCount());
+        LinearLayout parentLinearLayout = (LinearLayout) rowView;
 
 
         int x;
 
         x = R.layout.nb_row_type_000;
         rowView = inflater.inflate(x,null);
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
 
         x = R.layout.nb_row_type_002;
         rowView = inflater.inflate(x,null);
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
 
 
 
         rowView = inflater.inflate(R.layout.nb_row_type_001,null);
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
         rowView = inflater.inflate(R.layout.nb_row_type_002,null);
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
         //--------------------------------------------------------------------------
         rowView = inflater.inflate(R.layout.nb_row_group_000,null);
-        outerLinearLayout.addView(rowView,outerLinearLayout.getChildCount());
+        outerLinearLayout.addView(rowView, outerLinearLayout.getChildCount());
         parentLinearLayout = (LinearLayout) rowView;
 
 
         rowView = inflater.inflate(R.layout.nb_row_type_000,null);
         textValue = rowView.findViewById(R.id.label);
         textValue.setText("Header Yang Panjang");
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
         rowView = inflater.inflate(R.layout.nb_row_type_001,null);
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
         rowView = inflater.inflate(R.layout.nb_row_type_001,null);
         textValue = rowView.findViewById(R.id.label);
         textValue.setText("Ucapan");
         textValue = rowView.findViewById(R.id.value);
         textValue.setText("Salam");
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
         rowView = inflater.inflate(R.layout.nb_row_type_002,null);
         textValue = rowView.findViewById(R.id.label);
@@ -149,25 +245,25 @@ public class MainActivity extends AppCompatActivity {
 
         textValue = rowView.findViewById(R.id.value);
         textValue.setText("Dunia");
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
 
         //--------------------------------------------------------------------------
         rowView = inflater.inflate(R.layout.nb_row_group_000,null);
-        outerLinearLayout.addView(rowView,outerLinearLayout.getChildCount());
+        outerLinearLayout.addView(rowView, outerLinearLayout.getChildCount());
         parentLinearLayout = (LinearLayout) rowView;
 
 
         rowView = inflater.inflate(R.layout.nb_row_type_000,null);
         textValue = rowView.findViewById(R.id.label);
         textValue.setText("Baru tambah");
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
         //====================================
         rowView = inflater.inflate(R.layout.nb_row_type_001,null);
         textValue = rowView.findViewById(R.id.label);
         textValue.setText("Kena");
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
         //====================================
         rowView = inflater.inflate(R.layout.nb_row_type_001,null);
@@ -175,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
         textValue.setText("Ucapan");
         textValue = rowView.findViewById(R.id.value);
         textValue.setText("Salam");
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
         //====================================
         rowView = inflater.inflate(R.layout.nb_row_type_002,null);
@@ -183,8 +279,8 @@ public class MainActivity extends AppCompatActivity {
         textValue.setText("Kepada");
         textValue = rowView.findViewById(R.id.value);
         textValue.setText("Dunia");
-        textValue.setId(123);
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+//        textValue.setId(123);
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
 
 
     }
