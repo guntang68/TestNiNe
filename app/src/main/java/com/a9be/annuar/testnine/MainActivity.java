@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout parentLinearLayout;
 
 
+
     private void bukaJson()
     {
         String json = loadJSONFromAsset();
