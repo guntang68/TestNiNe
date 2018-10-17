@@ -1,0 +1,19 @@
+{
+	"DSN":"NiNe Network",
+	"Category":[
+		{	"Label"	:"My",
+			"Item"	:[
+				{
+					"Label"	:"POS",
+					"Value"	:[
+						"60.54.119.43",
+						"restaurant",
+						"60.54.9.43/hantar"
+					],
+					"ValueType"	:6
+				}
+			]
+		}
+	]
+}								
+
