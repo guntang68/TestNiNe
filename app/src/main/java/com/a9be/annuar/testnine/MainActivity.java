@@ -33,6 +33,40 @@ public class MainActivity extends AppCompatActivity {
             for (MyData.Element element : elements) {
                 Log.d("tagLog", "tab = " + row.getTab());
             }
+
+
+
+    private void bukaJson()
+    {
+        String json = loadJSONFromAsset();
+        try {
+            JSONObject main = new JSONObject(json);
+            JSONArray rows = main.getJSONArray("rows");
+            for(int i=0; i<rows.length(); i++){
+                JSONObject row = rows.getJSONObject(i);
+                String tab = row.getString("tab");
+                String type = row.getString("type");
+                JSONArray elements = row.getJSONArray("element");
+
+
+                Log.d("logTag", "row tab=" + tab + "\t type=" + type + "\t elemens=" + elements.length());
+
+                for(int y=0; y<elements.length(); y++){
+                    JSONObject a = elements.getJSONObject(y);
+                    String label = a.getString("l");
+                    String alignment = a.getString("a");
+                    Log.d("logTag", "Label=" + label + "\t alignment=" + alignment);
+
+
+
+                }
+                Log.d("logTag", "------------------------------------");
+
+
+            }
+
+        } catch (JSONException e) {
+            Log.d("tagLog", "Search : " + e.toString());
         }
     }
 
