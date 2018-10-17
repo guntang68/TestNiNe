@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,13 +27,47 @@ public class MainActivity extends AppCompatActivity {
 
     private void bukaJson()
     {
-
         String json = loadJSONFromAsset();
-//        JSONObject main = new JSONObject(json);
+        try {
+            JSONObject main = new JSONObject(json);
+            Iterator<String> keys = main.keys();
+            while(keys.hasNext()) {
+                String key = keys.next();
+
+                if(key.equals("rows")){
 
 
+                }
+
+                Log.d("logTag", key);
+                if (main.get(key) instanceof JSONObject) {
+                    Log.d("logTag", "haaa");
+                    Log.d("logTag", main.get(key).toString());
+                }
 
 
+            }
+        } catch (JSONException e) {
+            Log.d("tagLog", "Search : " + e.toString());
+        }
+    }
+
+    public String loadJSONFromAsset() {
+        String json;
+        try {
+            InputStream is = getApplicationContext().getAssets().
+                    open("baseData.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        Log.d("json", "dpt baca");
+        return json;
     }
 
 
@@ -40,12 +77,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        bukaJson();
 
 
-
-
-
-//        Log.d("logTag", jj);
 
         outerLinearLayout = (LinearLayout) findViewById(R.id.outer_layout);
 
@@ -57,11 +91,22 @@ public class MainActivity extends AppCompatActivity {
         //--------------------------------------------------------------------------
         rowView = inflater.inflate(R.layout.nb_row_group_000,null);
         outerLinearLayout.addView(rowView,outerLinearLayout.getChildCount());
-        parentLinearLayout = (LinearLayout) rowView;
+        parentLinearLayout = (LinearLayout)  rowView;
 
 
-        rowView = inflater.inflate(R.layout.nb_row_type_000,null);
+        int x;
+
+        x = R.layout.nb_row_type_000;
+        rowView = inflater.inflate(x,null);
         parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+
+
+        x = R.layout.nb_row_type_002;
+        rowView = inflater.inflate(x,null);
+        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+
+
+
 
         rowView = inflater.inflate(R.layout.nb_row_type_001,null);
         parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
@@ -137,7 +182,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEdit(View v){
-        Log.d("logTag", "haaaa" + v.getId());
+        Log.d("logTag", "haaaa" + v.getId() );
+
 
 
 
@@ -146,21 +192,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public String loadJSONFromAsset() {
-        String json;
-        try {
-            InputStream is = getApplicationContext().getAssets().
-                    open("baseData.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        Log.d("json", "dpt baca");
-        return json;
-    }
+
 }
