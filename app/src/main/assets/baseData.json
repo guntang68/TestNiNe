@@ -1,19 +1,52 @@
 {
-	"DSN":"NiNe Network",
-	"Category":[
-		{	"Label"	:"My",
-			"Item"	:[
+	"m": "SDE433XSE",
+	"n": "DDMS",
+	"g": [
+		"MyNiNe",
+		"business",
+		"DDMS"
+	],
+	"tabs":{
+		"0":"Config",
+		"1":"Monitor",
+		"2":"Report",
+		"3":"Task"
+	},
+	"rows": [
+		{
+			"tab": "1",
+			"type": "2",
+			"element":[
 				{
-					"Label"	:"POS",
-					"Value"	:[
-						"60.54.119.43",
-						"restaurant",
-						"60.54.9.43/hantar"
-					],
-					"ValueType"	:6
+					"l":"MMSI",
+					"a":"0"
+				},
+				{
+					"l":"998567334",
+					"a":"2"
+				}
+			]
+		},
+		{
+			"tab":"1",
+			"type":"12",
+			"element":[
+				{
+					"l":"hapatah",
+					"a":"1"
+				},
+				{
+					"l":"/path/wee.ico"
+
+				},
+				{
+					"l":"Price"
+				},
+				{
+					"l":""
+
 				}
 			]
 		}
 	]
-}								
-
+}
