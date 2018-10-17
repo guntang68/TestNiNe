@@ -54,35 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-
-//            Log.d("logTag", "aa " + aa);
-//
-//            Iterator<String> keys = row.keys();
-//            while(keys.hasNext()){
-//                String key = keys.next();
-//
-//                Log.d("logTag", "key " + key);
-//
-//            }
-
-//            Iterator<String> keys = main.keys();
-//            while(keys.hasNext()) {
-//                String key = keys.next();
-//
-//                if(key.equals("rows")){
-//                    main.getJSONArray("rows");
-//
-//
-//                }
-//
-//                Log.d("logTag", key);
-//                if (main.get(key) instanceof JSONObject) {
-//                    Log.d("logTag", "haaa");
-//                    Log.d("logTag", main.get(key).toString());
-//                }
-//
-//
-//            }
         } catch (JSONException e) {
             Log.d("tagLog", "Search : " + e.toString());
         }
