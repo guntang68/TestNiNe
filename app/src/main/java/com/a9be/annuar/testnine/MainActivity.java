@@ -30,23 +30,59 @@ public class MainActivity extends AppCompatActivity {
         String json = loadJSONFromAsset();
         try {
             JSONObject main = new JSONObject(json);
-            Iterator<String> keys = main.keys();
-            while(keys.hasNext()) {
-                String key = keys.next();
+            JSONArray rows = main.getJSONArray("rows");
+            for(int i=0; i<rows.length(); i++){
+                JSONObject row = rows.getJSONObject(i);
+                String tab = row.getString("tab");
+                String type = row.getString("type");
+                JSONArray elements = row.getJSONArray("element");
 
-                if(key.equals("rows")){
+
+                Log.d("logTag", "row tab=" + tab + "\t type=" + type + "\t elemens=" + elements.length());
+
+                for(int y=0; y<elements.length(); y++){
+                    JSONObject a = elements.getJSONObject(y);
+                    String label = a.getString("l");
+                    String alignment = a.getString("a");
+                    Log.d("logTag", "Label=" + label + "\t alignment=" + alignment);
+
 
 
                 }
-
-                Log.d("logTag", key);
-                if (main.get(key) instanceof JSONObject) {
-                    Log.d("logTag", "haaa");
-                    Log.d("logTag", main.get(key).toString());
-                }
+                Log.d("logTag", "------------------------------------");
 
 
             }
+
+
+//            Log.d("logTag", "aa " + aa);
+//
+//            Iterator<String> keys = row.keys();
+//            while(keys.hasNext()){
+//                String key = keys.next();
+//
+//                Log.d("logTag", "key " + key);
+//
+//            }
+
+//            Iterator<String> keys = main.keys();
+//            while(keys.hasNext()) {
+//                String key = keys.next();
+//
+//                if(key.equals("rows")){
+//                    main.getJSONArray("rows");
+//
+//
+//                }
+//
+//                Log.d("logTag", key);
+//                if (main.get(key) instanceof JSONObject) {
+//                    Log.d("logTag", "haaa");
+//                    Log.d("logTag", main.get(key).toString());
+//                }
+//
+//
+//            }
         } catch (JSONException e) {
             Log.d("tagLog", "Search : " + e.toString());
         }

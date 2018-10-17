@@ -16,6 +16,7 @@
 		{
 			"tab": "1",
 			"type": "2",
+			"apa": "2",
 			"element":[
 				{
 					"l":"MMSI",
@@ -29,21 +30,51 @@
 		},
 		{
 			"tab":"1",
-			"type":"12",
+			"type":"5",
 			"element":[
 				{
 					"l":"hapatah",
 					"a":"1"
 				},
 				{
-					"l":"/path/wee.ico"
+					"l":"/path/wee.ico",
+					"a":"1"
 
 				},
 				{
-					"l":"Price"
+					"l":"Price",
+					"a":"1"
 				},
 				{
-					"l":""
+					"l":"",
+					"a":"1"
+
+				}
+			]
+		},
+		{
+			"tab":"1",
+			"type":"3",
+			"element":[
+				{
+					"l":"hapatah",
+					"a":"1"
+				},
+				{
+					"l":"/path/wee.ico",
+					"a":"1"
+				},
+				{
+					"l":"Price",
+					"a":"1"
+				},
+				{
+					"l":"Price",
+					"a":"1"
+				},
+				{
+					"l":"",
+					"a":"1"
 
 				}
 			]
