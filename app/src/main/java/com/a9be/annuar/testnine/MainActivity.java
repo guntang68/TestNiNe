@@ -71,7 +71,14 @@ public class MainActivity extends AppCompatActivity {
                     String ee = "e" + (y + 1);
                     String label = ele.getString(ee);
                     textValue = rowView.findViewById(target);
-                    ((TextView) textValue).setText(label);
+                    if(textValue instanceof TextView){
+                        ((TextView) textValue).setText(label);
+                    }
+                    else{
+
+                        Log.d("logTag", "instanceof untuk = " + label);
+                    }
+
                 }
                 parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
             }
