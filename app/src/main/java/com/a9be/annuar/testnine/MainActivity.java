@@ -1,12 +1,22 @@
 package com.a9be.annuar.testnine;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -15,10 +25,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private boolean mula;
 
     @Override
     public void onClick(View v) {
@@ -115,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         v.startAnimation(a);
     }
 
-public class MainActivity extends AppCompatActivity {
+
 
     private int getLayout(String type)
     {
@@ -136,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater;
 
         View rowView;
-        View textValue;
+        View textValue = null;
         int X=0;
 
         parentLinearLayout = outerLinearLayout = (LinearLayout)  findViewById(OuterLayer);
@@ -153,14 +167,23 @@ public class MainActivity extends AppCompatActivity {
                 String tab = row.getString("tab");
                 String type = row.getString("type");
                 JSONArray elements = row.getJSONArray("element");
-                if(type.equals("0")){
-                    rowView = inflater.inflate(R.layout.nb_row_group_000,null);
-                    outerLinearLayout.addView(rowView,outerLinearLayout.getChildCount());
-                    parentLinearLayout = (LinearLayout)  rowView;
+
+                if(mula || type.equals("0")){
+                    if (mula)
+                        mula = false;
+                    parentLinearLayout  = (LinearLayout) inflater.inflate(R.layout.nb_row_group_000,null);
+                    outerLinearLayout.addView(parentLinearLayout,outerLinearLayout.getChildCount());
                 }
 
                 X = getLayout(type);
                 rowView = inflater.inflate(X,null);
+
+//// NAS
+                if (type.equals("0"))
+                    rowView.setOnClickListener(this);
+                List<String> strings = new ArrayList<>();
+
+/// NAS habis
 
                 for(int y = 0; y < elements.length(); y++){
                     int target = R.id.e1;
@@ -169,19 +192,43 @@ public class MainActivity extends AppCompatActivity {
                     String ee = "e" + (y + 1);
                     String label = ele.getString(ee);
                     textValue = rowView.findViewById(target);
+
+//// Nas start
+                    String alignment = ele.getString("a");
                     if(textValue instanceof TextView){
                         ((TextView) textValue).setText(label);
+                        switch (alignment){
+                            case "0":
+                                ((TextView) textValue).setGravity(Gravity.START);
+                                break;
+                            case "1":
+                                ((TextView) textValue).setGravity(Gravity.CENTER);
+                                break;
+                            case "2":
+                                ((TextView) textValue).setGravity(Gravity.END);
+                                break;
+                        }
                     }
-                    else{
-
-                        Log.d("logTag", "instanceof untuk = " + label);
+                    else if (type.equals("5") && y>0){
+                        strings.add(label);
+                        textValue = rowView.findViewById(R.id.e2);
                     }
-
+                    else if (textValue instanceof ImageView) {
+                        ((ImageView)textValue).setImageResource(R.drawable.gf);
+                        ((ImageView)textValue).setScaleType(ImageView.ScaleType.FIT_XY);
+                    }
                 }
+                if (textValue instanceof Spinner) {
+                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, strings);
+                    dataAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+                    ((Spinner) textValue).setAdapter(dataAdapter);
+                }
+
+/// NAS habis
                 parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
             }
         } catch (JSONException e) {
-            Log.d("tagLog", "Search : " + e.toString());
+            Log.d("logTag", "Search : " + e.toString());
         }
     }
 
@@ -189,6 +236,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mula = true;
 
         bukaJson(R.id.outer_layout);
     }
