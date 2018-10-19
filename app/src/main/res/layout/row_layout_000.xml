@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.a9be.annuar.testnine.MyHeader xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:id="@+id/layoutKosong"
     android:padding="5dp">
 
     <View
@@ -19,7 +18,6 @@
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp" />
 
     <ImageButton
@@ -29,4 +27,4 @@
         android:background="@android:color/white"
         android:layout_alignParentEnd="true"/>
 
-</RelativeLayout>
+</com.a9be.annuar.testnine.MyHeader>

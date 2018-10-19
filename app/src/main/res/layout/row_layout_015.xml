@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+    android:padding="3dp">
 
     <ImageView
         android:id="@+id/e1"
@@ -15,8 +16,8 @@
         android:id="@+id/e2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="3dp"
-        android:paddingTop="3dp"
+        android:padding="3dp"
+        android:background="@color/colorPrimary"
         android:layout_alignParentStart="true"
         android:layout_above="@id/e3"
         android:layout_toStartOf="@id/e4"/>
@@ -28,14 +29,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@id/e5"
-        android:layout_alignTop="@id/e5"/>
+        android:layout_alignTop="@id/e5"
+        android:padding="3dp"/>
 
     <TextView
         android:id="@+id/e4"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
+        android:padding="3dp"
         android:layout_alignParentEnd="true"
         android:layout_above="@id/e5"/>
 
