@@ -1,15 +1,21 @@
 package com.a9be.annuar.testnine;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,7 +29,117 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    @Override
+    public void onClick(View v) {
+        MyHeader header = (MyHeader) v;
+        final ViewGroup parent = (ViewGroup) v.getParent();
+        boolean expand;
+        Log.d("logTag", "isExpanded = " + header.isExpanded());
+        if (header.isExpanded()) {
+            expand(parent);
+            expand = false;
+        }else {
+            collapse(parent);
+            expand = true;
+        }
+        header.setExpanded(expand);
+    }
+
+    private void expand(final ViewGroup v) {
+        final ScrollView scroll = findViewById(R.id.ScrollViewID);
+
+        final int initialHeight = v.getMeasuredHeight();
+
+        for (int p=1; p<v.getChildCount(); p++) {
+            v.getChildAt(p).setVisibility(View.VISIBLE);
+        }
+        v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = v.getMeasuredHeight();
+
+        final Rect scrollBounds = new Rect();
+        scroll.getDrawingRect(scrollBounds);
+
+        final int screen = scroll.getHeight();
+        int visibleScreenHeight = scrollBounds.bottom - scrollBounds.top;
+
+
+
+        Log.d("logTag", "targetHeight = " + targetHeight);
+        Log.d("logTag", "screen = " + screen);
+        Log.d("logTag", "getTop = " + v.getTop());
+        Log.d("logTag", "scrollBounds.top = " + scrollBounds.top);
+        Log.d("logTag", "scrollBounds.bottom = " + scrollBounds.bottom);
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? ViewGroup.LayoutParams.WRAP_CONTENT
+                        : (int) (initialHeight + (targetHeight - initialHeight) * interpolatedTime);
+                v.requestLayout();
+                if (targetHeight>=screen) {
+                    scroll.smoothScrollTo(0, v.getTop());
+                }else if (scrollBounds.bottom<v.getBottom()) {
+                    int gap = v.getTop() - (screen - targetHeight);
+                    scroll.smoothScrollTo(0, gap);
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+
+    }
+
+    private void collapse(final ViewGroup v) {
+        float dip = 12f;
+
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dip,
+                getResources().getDisplayMetrics()
+        );
+//        final int initialHeight = v.getMeasuredHeight();
+        final int initialHeight = (int) (v.getMeasuredHeight() + px);
+        final int finalHeight = v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight();
+//        Log.d("logTag", "finalHeight = " + finalHeight);
+//        Log.d("logTag", "finalHeight = " + finalHeight);
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if(interpolatedTime == 1){
+                    for (int p=v.getChildCount()-1; p>0; p--) {
+                        v.getChildAt(p).setVisibility(View.GONE);
+                    }
+//                    Log.d("logTag", "IsExpanded");
+//                    v.setVisibility(View.GONE);
+                }else{
+                    v.getLayoutParams().height = initialHeight - (int)(finalHeight * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
 
     private int getLayout(String type)
     {
@@ -70,6 +186,8 @@ public class MainActivity extends AppCompatActivity {
 
                 X = getLayout(type);
                 rowView = inflater.inflate(X,null);
+                if (type.equals("0"))
+                    rowView.setOnClickListener(this);
                 List<String> strings = new ArrayList<>();
 
                 for(int y = 0; y < elements.length(); y++){
@@ -145,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("json", "dpt baca");
         return json;
     }
+
 
 
 }

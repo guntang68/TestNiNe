@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button"
                 android:hint="@string/qty"
+                android:inputType="number"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:gravity="center"/>
