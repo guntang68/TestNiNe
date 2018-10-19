@@ -62,15 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scroll.getDrawingRect(scrollBounds);
 
         final int screen = scroll.getHeight();
-        int visibleScreenHeight = scrollBounds.bottom - scrollBounds.top;
-
-
-
-        Log.d("logTag", "targetHeight = " + targetHeight);
-        Log.d("logTag", "screen = " + screen);
-        Log.d("logTag", "getTop = " + v.getTop());
-        Log.d("logTag", "scrollBounds.top = " + scrollBounds.top);
-        Log.d("logTag", "scrollBounds.bottom = " + scrollBounds.bottom);
 
         Animation a = new Animation()
         {
@@ -108,12 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dip,
                 getResources().getDisplayMetrics()
         );
-//        final int initialHeight = v.getMeasuredHeight();
         final int initialHeight = (int) (v.getMeasuredHeight() + px);
         final int finalHeight = v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight();
-//        Log.d("logTag", "finalHeight = " + finalHeight);
-//        Log.d("logTag", "finalHeight = " + finalHeight);
-
         Animation a = new Animation()
         {
             @Override
@@ -122,8 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     for (int p=v.getChildCount()-1; p>0; p--) {
                         v.getChildAt(p).setVisibility(View.GONE);
                     }
-//                    Log.d("logTag", "IsExpanded");
-//                    v.setVisibility(View.GONE);
                 }else{
                     v.getLayoutParams().height = initialHeight - (int)(finalHeight * interpolatedTime);
                     v.requestLayout();
