@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollViewID"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/outer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".MainActivity">
     </LinearLayout>

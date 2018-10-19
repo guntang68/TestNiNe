@@ -2,18 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/layoutSatu_tiga">
+    android:layout_height="wrap_content"
+    android:padding="3dp">
 
     <TextView
         android:id="@+id/e1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@color/colorPrimary"/>
 
     <EditText
         android:id="@+id/e2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:padding="5dp"/>
 
 </LinearLayout>
