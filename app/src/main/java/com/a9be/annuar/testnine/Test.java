@@ -37,24 +37,24 @@ public class Test {
         this.mula = true;
     }
 
-    private void expand(final ViewGroup v) {
+    private void expand(final ViewGroup v, Context context) {
         final ScrollView scroll;
-        scroll = v.findViewById(R.id.ScrollViewID);
+        scroll = ((MainActivity)context).findViewById(R.id.ScrollViewID);
 
         final int initialHeight = v.getMeasuredHeight();
-
-
-
-
         for (int p=1; p<v.getChildCount(); p++) {
             v.getChildAt(p).setVisibility(View.VISIBLE);
         }
-
-
-
         v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final int targetHeight = v.getMeasuredHeight();
 
+        float dip = 61f;
+
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dip,
+                context.getResources().getDisplayMetrics()
+        );
 
 
         final Rect scrollBounds = new Rect();
@@ -63,11 +63,9 @@ public class Test {
 
         scroll.getDrawingRect(scrollBounds);
 
-        Log.d("logTag", "Sini2");
+        Log.d("logTag", "Sini2 " + scrollBounds.bottom);
 
-        final int screen = scroll.getHeight();
-
-
+        final int screen = (int) (scroll.getHeight() - px);
 
         Animation a = new Animation()
         {
@@ -91,7 +89,7 @@ public class Test {
             }
         };
 
-        Log.d("logTag", "Sini3");
+
 
         // 1dp/ms
         a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
@@ -184,7 +182,7 @@ public class Test {
                             boolean expand;
                             Log.d("logTag", "isExpanded = " + header.isExpanded());
                             if (header.isExpanded()) {
-                                expand(parent);
+                                expand(parent, context);
                                 expand = false;
                             }else {
                                 collapse(parent, context);
