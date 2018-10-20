@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    android:clickable="false"
     android:orientation="vertical"
     android:padding="3dp">
 
@@ -10,9 +10,9 @@
         android:id="@+id/e1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:gravity="center"
-        android:padding="3dp"
-        android:background="@color/colorPrimary"/>
+        android:padding="3dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,23 +23,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:padding="3dp"/>
+            android:padding="3dp" />
 
         <EditText
             android:id="@+id/e3"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:background="@drawable/rounded_button"
-            android:hint="@string/qty"
             android:gravity="center"
-            android:inputType="number"/>
+            android:hint="@string/qty"
+            android:inputType="number" />
 
     </RelativeLayout>
-
-
-
 
 
 </LinearLayout>
