@@ -25,53 +25,20 @@ public class MainActivity extends AppCompatActivity{
         mula = true;
         test = new Test();
 
-//        test.bukaJsonTab(R.id.outer_layout,this);
-        test.bukaJson(R.id.outer_layout,this,this);
+        test.bukaJsonTab(R.id.outer_layout,this);
 
-//        LinearLayout layoutMyLayout =  findViewById(R.id.outer_layout);
-//        Test.ViewHolder vh;
-//
-//        if (layoutMyLayout != null){
-//            Log.d("logTag", "Haa 1");
-//            for (int x = 0; x < layoutMyLayout.getChildCount(); x++){
-//                Log.d("logTag", "Haa 2");
-//                View viewChild1 = layoutMyLayout.getChildAt(x);
-//                Class classChild1 = viewChild1.getClass();
-//                if (classChild1 == LinearLayout.class){
-//                    LinearLayout layoutChild1 = (LinearLayout) viewChild1;
-//                    for (int y = 0; y < layoutChild1.getChildCount(); y++){
-//                        View viewC = layoutChild1.getChildAt(y);
-//                        Class classChild2 = viewC.getClass();
-//                        if(classChild2 == LinearLayout.class){
-//                            LinearLayout LL = (LinearLayout) viewC;
-//                            for(int z = 0; z < LL.getChildCount(); z++){
-//                                View viewD = LL.getChildAt(z);
-//                                vh = (Test.ViewHolder) viewD.getTag();
-//                                if(vh != null){
-//                                    Log.d("logTag", "ViewHolder tag= " + vh.tag + "  id=" + vh.id  + " x" + x  + " y" + y  + " z" + z  );
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
 
+        test.editText(R.id.outer_layout,this,1,1,0,"ketua darjah");
         test.editText(R.id.outer_layout,this,1,1,1,"Annuar Zaini Abdullah");
-        test.editText(R.id.outer_layout,this,0,2,0,"A quick brown fox jumps over the lazy dog");
-//        test.editText(R.id.outer_layout,this,1,2,0,"Timestamp");
-//        test.editText(R.id.outer_layout,this,0,6,0,"Pilihan");
-
+        test.editText(R.id.outer_layout,this,1,3,0,"nama");
+        test.editText(R.id.outer_layout,this,1,3,1,"suhaimi");
+        test.editText(R.id.outer_layout,this,1,7,0,"");
 
     }
 
     public void onEdit(View v){
         Log.d("logTag", "haaaa" + v.getId() );
     }
-
-
-
-
 
 }
 

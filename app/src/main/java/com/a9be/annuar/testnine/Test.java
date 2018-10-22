@@ -100,7 +100,7 @@ public class Test {
 
 
         // 1dp/ms
-        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration((int)(targetHeight / (v.getContext().getResources().getDisplayMetrics().density * 5)));
         v.startAnimation(a);
 
     }
@@ -137,7 +137,7 @@ public class Test {
 
 
         // 1dp/ms
-        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration((int)(initialHeight  / (v.getContext().getResources().getDisplayMetrics().density * 5)));
         v.startAnimation(a);
     }
 
@@ -147,7 +147,7 @@ public class Test {
         View viewOuter = linearLayoutOuter.getChildAt(x);   //x
         LinearLayout linearLayoutHeader = (LinearLayout) viewOuter;
         View viewGroup = linearLayoutHeader.getChildAt(y);  // y header group
-        LinearLayout linearLayoutItem = (LinearLayout) viewGroup;
+        ViewGroup linearLayoutItem = (ViewGroup) viewGroup;
 
         View viewElement = linearLayoutItem.getChildAt(z);  // z
         ((TextView) viewElement).setText(value);
@@ -403,3 +403,126 @@ public class Test {
     }
 
 }
+
+
+
+
+//==========bukaJson yang asal=================================================
+
+//    public void bukaJson(int OuterLayer, Activity activity, final Context context)
+//    {
+//        LinearLayout outerLinearLayout;
+//        LinearLayout parentLinearLayout;
+//        LayoutInflater inflater;
+//
+//        View rowView;
+//        View textValue = null;
+//        int X=0;
+//
+//        parentLinearLayout = outerLinearLayout = (LinearLayout) activity.findViewById(OuterLayer);
+//        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+//        String json = this.loadJSONFromAsset(context);// loadJSONFromAsset();
+//
+//        try {
+//            JSONObject main = new JSONObject(json);
+//            activity.setTitle(main.get("n").toString());
+//            JSONArray rows = main.getJSONArray("rows");
+//
+//            for(int i=0; i<rows.length(); i++){
+//                JSONObject row = rows.getJSONObject(i);
+//                String tab = row.getString("tab");
+//                String type = row.getString("type");
+//                JSONArray elements = row.getJSONArray("element");
+//
+//                if(mula || type.equals("0")){
+//                    if (mula)
+//                        mula = false;
+//                    parentLinearLayout  = (LinearLayout) inflater.inflate(R.layout.nb_row_group_000,null);
+//                    outerLinearLayout.addView(parentLinearLayout,outerLinearLayout.getChildCount());
+//                }
+//
+//                X = this.getLayout(type); // getLayout(type);
+//                rowView = inflater.inflate(X,null);
+//                if (type.equals("0")){
+//                    rowView.setOnClickListener(new View.OnClickListener() {
+//                        public void onClick(View v) {
+//                            MyHeader header = (MyHeader) v;
+//                            final ViewGroup parent = (ViewGroup) v.getParent();
+//                            boolean expand;
+//                            Log.d("logTag", "isExpanded = " + header.isExpanded());
+//                            if (header.isExpanded()) {
+//                                expand(parent, context);
+//                                expand = false;
+//                            }else {
+//                                collapse(parent, context);
+//                                expand = true;
+//                            }
+//                            header.setExpanded(expand);
+//
+//
+//                        }
+//                    });
+//
+//                }
+//
+//                List<String> strings = new ArrayList<>();
+//
+//                for(int y = 0; y < elements.length(); y++){
+//                    int target = R.id.e1;
+//                    target += y ;
+//                    JSONObject ele = elements.getJSONObject(y);
+//                    String ee = "e" + (y + 1);
+//                    String label = ele.getString(ee);
+//                    textValue = rowView.findViewById(target);
+//
+//                    String alignment = ele.getString("a");
+//                    String tag = ele.getString("i");    //--------------------------------!!additional tag info
+//                    if(textValue instanceof TextView){
+//                        ((TextView) textValue).setText(label);
+//                        switch (alignment){
+//                            case "0":
+//                                ((TextView) textValue).setGravity(Gravity.START);
+//                                break;
+//                            case "1":
+//                                ((TextView) textValue).setGravity(Gravity.CENTER);
+//                                break;
+//                            case "2":
+//                                ((TextView) textValue).setGravity(Gravity.END);
+//                                break;
+//                        }
+//                    }
+//                    else if (type.equals("5") && y>0){
+//                        strings.add(label);
+//                        textValue = rowView.findViewById(R.id.e2);
+//                    }
+//                    else if (textValue instanceof ImageView) {
+//                        ((ImageView)textValue).setImageResource(R.drawable.gf);
+//                        ((ImageView)textValue).setScaleType(ImageView.ScaleType.FIT_XY);
+//                    }
+//
+////                    21/10/2018 10:09 Now
+////                    Log.d("logTag", tag);   //-----DEBUG
+//
+//                    ViewHolder vh = new ViewHolder();
+//                    vh.id = target;
+//                    vh.tag = Integer.parseInt(tag);
+//                    textValue.setTag(vh);
+//
+//                }
+//                if (textValue instanceof Spinner) {
+//                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(activity, R.layout.spinner_item, strings);
+//                    dataAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+//                    ((Spinner) textValue).setAdapter(dataAdapter);
+//                }
+//
+///// NAS habis
+//                parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount());
+//            }
+//        } catch (JSONException e) {
+//            Log.d("logTag", "Search : " + e.toString());
+//        }
+//
+//
+//
+//    }
