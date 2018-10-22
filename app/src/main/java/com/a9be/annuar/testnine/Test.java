@@ -86,7 +86,7 @@ public class Test {
                 if (targetHeight>=screen) {
                     scroll.smoothScrollTo(0, v.getTop());
                 }else if (scrollBounds.bottom<v.getBottom()) {
-                    int gap = v.getTop() - (screen - targetHeight);
+                    int gap = v.getTop() - (screen - v.getHeight());
                     scroll.smoothScrollTo(0, gap);
                 }
             }
