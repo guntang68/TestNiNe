@@ -28,12 +28,20 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class Test {
+
+    static public class ViewHolder {
+        int id;
+        int tag;
+    }
 
     private boolean mula;
 
+
+
     public Test() {
-//        Log.d("logTag","Test");
         this.mula = true;
     }
 
@@ -97,7 +105,6 @@ public class Test {
 
     }
 
-
     private void collapse(final ViewGroup v, Context context) {
         float dip = 12f;
 
@@ -134,6 +141,21 @@ public class Test {
         v.startAnimation(a);
     }
 
+    public void editText(int OuterLayer, Activity activity, int x, int y, int z, String value)
+    {
+        LinearLayout linearLayoutOuter = activity.findViewById(OuterLayer);
+        View viewOuter = linearLayoutOuter.getChildAt(x);   //x
+        LinearLayout linearLayoutHeader = (LinearLayout) viewOuter;
+        View viewGroup = linearLayoutHeader.getChildAt(y);  // y header group
+        LinearLayout linearLayoutItem = (LinearLayout) viewGroup;
+
+        View viewElement = linearLayoutItem.getChildAt(z);  // z
+        ((TextView) viewElement).setText(value);
+
+    }
+
+
+
     public void bukaJson(int OuterLayer, Activity activity, final Context context)
     {
         LinearLayout outerLinearLayout;
@@ -148,8 +170,6 @@ public class Test {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         String json = this.loadJSONFromAsset(context);// loadJSONFromAsset();
-
-//        Log.d("logTag",json);
 
         try {
             JSONObject main = new JSONObject(json);
@@ -174,9 +194,6 @@ public class Test {
                 if (type.equals("0")){
                     rowView.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            Log.d("logTag","bla");
-//                            startActivity(new Intent(context,Test.class));
-
                             MyHeader header = (MyHeader) v;
                             final ViewGroup parent = (ViewGroup) v.getParent();
                             boolean expand;
@@ -196,16 +213,7 @@ public class Test {
 
                 }
 
-//// NAS
-//                if (type.equals("0"))
-////                    rowView.setOnClickListener(this);
-//                {
-//                    rowView.setOnClickListener();
-//                }
-
                 List<String> strings = new ArrayList<>();
-
-/// NAS habis
 
                 for(int y = 0; y < elements.length(); y++){
                     int target = R.id.e1;
@@ -215,8 +223,8 @@ public class Test {
                     String label = ele.getString(ee);
                     textValue = rowView.findViewById(target);
 
-//// Nas start
                     String alignment = ele.getString("a");
+                    String tag = ele.getString("i");    //--------------------------------!!additional tag info
                     if(textValue instanceof TextView){
                         ((TextView) textValue).setText(label);
                         switch (alignment){
@@ -239,6 +247,15 @@ public class Test {
                         ((ImageView)textValue).setImageResource(R.drawable.gf);
                         ((ImageView)textValue).setScaleType(ImageView.ScaleType.FIT_XY);
                     }
+
+//                    21/10/2018 10:09 Now
+//                    Log.d("logTag", tag);   //-----DEBUG
+
+                    ViewHolder vh = new ViewHolder();
+                    vh.id = target;
+                    vh.tag = Integer.parseInt(tag);
+                    textValue.setTag(vh);
+
                 }
                 if (textValue instanceof Spinner) {
                     ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(activity, R.layout.spinner_item, strings);
@@ -252,6 +269,9 @@ public class Test {
         } catch (JSONException e) {
             Log.d("logTag", "Search : " + e.toString());
         }
+
+
+
     }
 
     public String loadJSONFromAsset(Context context) {
