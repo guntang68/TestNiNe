@@ -154,7 +154,105 @@ public class Test {
 
     }
 
+    public void bukaJsonTab(int OuterLayer, final Context context) {
+        try {
+            LinearLayout outerLinearLayout;
+            LinearLayout parentLinearLayout;
+            View rowView;
+            View v1;
 
+            outerLinearLayout = ((MainActivity)context).findViewById(OuterLayer);
+
+            String json = this.loadJSONFromAsset(context);// loadJSONFromAsset();
+
+            JSONObject main = new JSONObject(json);
+            JSONObject tabs = main.getJSONObject("tabs");
+            JSONArray rows = main.getJSONArray("rows");
+            Log.d("logTag", "tab.length : " + tabs.length());
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            for (int i=0; i<tabs.length(); i++) {
+                Log.d("logTag", "tab" + i + " : " + tabs.getString(String.valueOf(i)));
+                parentLinearLayout = (LinearLayout) inflater.inflate(R.layout.nb_row_group_000, null);
+                outerLinearLayout.addView(parentLinearLayout, outerLinearLayout.getChildCount());
+                rowView = inflater.inflate(R.layout.row_layout_000, null);
+                v1 = rowView.findViewById(R.id.e1);
+                String header = tabs.getString(String.valueOf(i));
+                ((TextView)v1).setText(header);
+                ((MyHeader)rowView).setExpanded(true);
+                rowView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MyHeader header = (MyHeader) v;
+                        final ViewGroup parent = (ViewGroup) v.getParent();
+                        boolean expand;
+                        Log.d("logTag", "isExpanded = " + header.isExpanded());
+                        if (header.isExpanded()) {
+                            collapse(parent, context);
+                            expand = false;
+                        }else {
+                            expand(parent, context);
+                            expand = true;
+                        }
+                        header.setExpanded(expand);
+                    }
+                });
+                parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
+                for (int j=0; j<rows.length(); j++) {
+                    JSONObject aRow = rows.getJSONObject(j);
+                    String tab = aRow.getString("tab");
+                    if (tab.equals(String.valueOf(i))) {
+                        String type = aRow.getString("type");
+                        JSONArray elements = aRow.getJSONArray("element");
+                        rowView = inflater.inflate(getLayout(type), null);
+                        List<String> strings = new ArrayList<>();
+                        for (int k=0; k<elements.length(); k++) {
+                            int target = R.id.e1;
+                            target += k ;
+                            JSONObject ele = elements.getJSONObject(k);
+                            String ee = "e" + (k + 1);
+                            String label = ele.getString(ee);
+                            String attr = ele.getString("a");
+                            v1 = rowView.findViewById(target);
+                            if (v1 instanceof TextView) {
+                                ((TextView) v1).setText(label);
+                                switch (attr){
+                                    case "0":
+                                        ((TextView) v1).setGravity(Gravity.START);
+                                        break;
+                                    case "1":
+                                        ((TextView) v1).setGravity(Gravity.CENTER);
+                                        break;
+                                    case "2":
+                                        ((TextView) v1).setGravity(Gravity.END);
+                                        break;
+                                }
+                            }
+                            else if (v1 instanceof Spinner) {
+                                strings.add(label);
+                            }else if (v1 instanceof ImageView) {
+                                ((ImageView)v1).setImageResource(R.drawable.gf);
+                                ((ImageView)v1).setScaleType(ImageView.ScaleType.FIT_XY);
+                            }
+                        }
+
+                        if (v1 instanceof Spinner) {
+                            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, strings);
+                            dataAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+                            ((Spinner) v1).setAdapter(dataAdapter);
+                        }
+
+                        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount());
+
+                    }
+                }
+
+            }
+
+        }catch (JSONException e) {
+            Log.d("logTag", "bukaJsonTab : " + e.toString());
+        }
+
+    }
 
     public void bukaJson(int OuterLayer, Activity activity, final Context context)
     {
