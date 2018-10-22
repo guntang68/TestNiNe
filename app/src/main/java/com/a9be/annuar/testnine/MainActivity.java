@@ -25,12 +25,13 @@ public class MainActivity extends AppCompatActivity{
         mula = true;
         test = new Test();
 
-        test.bukaJson(R.id.outer_layout,this,this);
+//        test.bukaJson(R.id.outer_layout,this,this);
+        test.bukaJsonTab(R.id.outer_layout, this);
 
 
-        test.editText(R.id.outer_layout,this,0,1,1,"Annuar Zaini Abdullah");
-        test.editText(R.id.outer_layout,this,0,2,0,"A quick brown fox jumps over the lazy dog");
-        test.editText(R.id.outer_layout,this,1,2,0,"Timestamp");
+//        test.editText(R.id.outer_layout,this,0,1,1,"Annuar Zaini Abdullah");
+//        test.editText(R.id.outer_layout,this,0,2,0,"A quick brown fox jumps over the lazy dog");
+//        test.editText(R.id.outer_layout,this,1,2,0,"Timestamp");
 
 
     }
